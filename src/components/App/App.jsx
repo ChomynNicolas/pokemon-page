@@ -1,21 +1,23 @@
-import { useState } from "react";
+import {  useState } from "react";
 import "./App.css";
 import PokemonFetch from "../PokemonFetch/PokemonFetch";
+import axios from "axios";
+
 
 function App() {
   const [pokemons, setpokemons] = useState([]);
+  
+  
 
   const cargarPokemons = async () => {
-    try {
-      const response = await fetch(
+    
+      const response = await axios.get(
         "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
-      );
-      const { results } = await response.json();
-
-      setpokemons(results);
-    } catch (error) {
-      console.log(error);
-    }
+      )
+      
+      console.log(response.data.results);
+      setpokemons(response.data.results);
+      
   };
   console.log(pokemons);
 
